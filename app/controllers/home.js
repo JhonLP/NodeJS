@@ -4,7 +4,7 @@ var homeController = function (server, users) {
 	console.log('esta corriendo');
 
 	var isLoggedIn = function (req,res,next) {
-		if (req.session.user) {
+		if (req.session.passport.user) {
 			res.redirect('/app');
 			return;
 		}

@@ -1,6 +1,7 @@
 var express = require('express.io'),
 	swig = require('swig'),
-	_ = require('underscore');
+	_ = require('underscore'),
+	passport = require('passport');
 
 var ex_session = require('express-session');
 
@@ -34,10 +35,22 @@ server.configure(function () {
 		//	user : conf.redis.user,
 		//	pass : conf.redis.pass
 		//});
-
 	}));
 
+	server.use(passport.initialize());
+	server.use(passport.session()); // corre arriba de session
+	// por lo que debe declararse despues de express.session
+
 });
+
+passport.serializeUser(function(user,done){
+	done(null,user);
+});
+
+passport.deserializeUser(function(obj,done){
+	done(null,obj);
+});
+
 
 //Controllers
 var homeController = require('./app/controllers/home');
@@ -45,6 +58,10 @@ var appController = require('./app/controllers/app');
 
 homeController(server,users);
 appController(server,users);
+
+//Conexiones
+var twitterConnection = require('./app/connections/twitter');
+twitterConnection(server);
 
 
 server.io.route('hello?', function (req) {
