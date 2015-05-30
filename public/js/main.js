@@ -21,4 +21,9 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	io.on('post', function(data){
+
+		$('#post').append('<p>' + data.user.username + ':' + data.content + '</p>');
+	});
 });

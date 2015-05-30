@@ -13,7 +13,7 @@ var appController = function (server,users) {
 	};
 
 	var getUser = function (req,res,next) {
-		User.findOne({ username: "JhonLPdev" }, function(err,user){
+		User.findOne({ username: req.session.passport.user.username }, function(err,user){
 			req.user = user;
 			next();
 		});
@@ -21,6 +21,7 @@ var appController = function (server,users) {
 
 	server.get('/app', isntLoggedIn, function (req,res) {
 		Post.find({})
+		.populate('user')
 		.exec(function(err, posts){
 			
 			var postsAsJson = _.map(posts,function(post){
@@ -47,6 +48,11 @@ var appController = function (server,users) {
 			if(err){
 				res.send(500, err);
 			}
+
+		server.io.broadcast('post', {
+			content : post.content,
+			user : req.user.toJSON()
+		});
 
 		res.redirect('/app');
 		});
