@@ -39,50 +39,13 @@ server.configure(function () {
 
 });
 
-var isntLoggedIn = function (req,res,next) {
-	if (!req.session.user) {
-		res.redirect('/');
-		return;
-	}
-	next();
-};
+//Controllers
+var homeController = require('./app/controllers/home');
+var appController = require('./app/controllers/app');
 
-var isLoggedIn = function (req,res,next) {
-	if (req.session.user) {
-		res.redirect('/app');
-		return;
-	}
-	next();
-};
+homeController(server,users);
+appController(server,users);
 
-server.get('/', isLoggedIn, function (req,res) {
-	res.render('Home');
-});
-
-server.get('/app', isntLoggedIn, function (req,res) {
-	res.render('app', {
-		user : req.session.user,
-		users : users
-	});
-});
-
-server.post('/log-in', function (req,res) {
-	users.push(req.body.username);
-
-	req.session.user = req.body.username;
-	server.io.broadcast('log-in', {username : req.session.user}); //notifica a todos en el server
-
-	res.redirect('/app');
-});
-
-server.get('/log-out', function (req,res) {
-	users = _.without(users, req.session.user);
-
-	server.io.broadcast('log-out', {username : req.session.user}); //notifica a todos en el server
-
-	req.session.destroy();
-	res.redirect('/');
-});
 
 server.io.route('hello?', function (req) {
 	req.io.emit('saludo',{ //se envia a un usuario
