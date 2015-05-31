@@ -12,7 +12,7 @@ var homeController = function (server, users) {
 	};
 
 	server.get('/', isLoggedIn, function (req,res) {
-		res.render('Home');
+		res.render('home');
 	});
 
 	server.post('/log-in', function (req,res) {
