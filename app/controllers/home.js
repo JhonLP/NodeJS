@@ -1,5 +1,4 @@
-var _ = require('underscore'),
-	passport = require('passport');
+var _ = require('underscore');
 
 var homeController = function (server, users) {
 	console.log('esta corriendo');

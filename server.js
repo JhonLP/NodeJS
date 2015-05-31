@@ -5,7 +5,7 @@ var express = require('express.io'),
 
 var ex_session = require('express-session');
 
-var RedisStore = require('connect-redis')(ex_session);	
+//var RedisStore = require('connect-redis')(ex_session);	
 
 var server = express();
 server.http().io();
@@ -28,13 +28,7 @@ server.configure(function () {
 
 	server.use(express.session({
 		secret : "lolcatz",
-		store : new RedisStore({})
-		//store : new RedisStore({
-		//	host : conf.redis.host,
-		//	port : conf.redis.port,
-		//	user : conf.redis.user,
-		//	pass : conf.redis.pass
-		//});
+		cookie : { maxAge : 1200000}
 	}));
 
 	server.use(passport.initialize());
