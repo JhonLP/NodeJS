@@ -8,7 +8,7 @@ var twitterConnection = function (server) {
 	passport.use(new TwitterStrategy({
 		consumerKey: 'mEVqZK5M5vELB8jpZsgkoMVA6',
 		consumerSecret: 'xan19paUkHFNW71Sw33GrqEMp5W42Jw7xfKGM2RKNQsmtYVGH2',
-		callbackURL: 'http://127.0.0.1:3000/auth/twitter/callback'
+		callbackURL: 'https://node-chat-twitter.herokuapp.com/auth/twitter/callback'
 	}, function (token,tokenSecret, profile, done){
 
 		var user = new User({
