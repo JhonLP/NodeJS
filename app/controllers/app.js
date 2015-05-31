@@ -1,6 +1,7 @@
 var User = require('../models/user'),
 	Post = require('../models/post'),
-	_ = require('underscore');
+	_ = require('underscore'),
+	passport = require('passport');
 
 var appController = function (server,users) {
 
