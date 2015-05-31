@@ -49,12 +49,17 @@ var appController = function (server,users) {
 				res.send(500, err);
 			}
 
+		console.log('post guardado');
+
 		server.io.broadcast('post', {
 			content : post.content,
 			user : req.user.toJSON()
 		});
 
+		console.log('envio de post a usuarios');
+
 		res.redirect('/app');
+		console.log('recarga pagina');
 		});
 
 	});
