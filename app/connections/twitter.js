@@ -6,8 +6,8 @@ var User = require('../models/user');
 var twitterConnection = function (server) {
 
 	passport.use(new TwitterStrategy({
-		consumerKey: 'mEVqZK5M5vELB8jpZsgkoMVA6',
-		consumerSecret: 'xan19paUkHFNW71Sw33GrqEMp5W42Jw7xfKGM2RKNQsmtYVGH2',
+		consumerKey: '',
+		consumerSecret: '',
 		callbackURL: 'https://node-chat-twitter.herokuapp.com/auth/twitter/callback'
 	}, function (token,tokenSecret, profile, done){
 
